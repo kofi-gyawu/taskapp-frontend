@@ -1,39 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TaskcardComponent } from "./taskcard/taskcard.component";
 import { CommonModule } from '@angular/common';
 import { Task } from './task.model';
 import { getHeadersWithAuthorization } from '@acusti/aws-signature-v4';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-task-list',
-  imports: [TaskcardComponent,CommonModule],
+  imports: [TaskcardComponent,CommonModule,HttpClientModule],
+  providers: [HttpClient],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
-export class TaskListComponent {
-  tasks: Task[] = [
-    {
-      id: "1",
-      name: "task1",
-      description: "first task",
-      Status: "open",
-      deadline: 1,
-      responsibility: "me",
-      completed_at: "",
-      comment: ""
-    },
-    {
-      id: "1",
-      name: "task1",
-      description: "first task",
-      Status: "open",
-      deadline: 1,
-      responsibility: "me",
-      completed_at: "",
-      comment: ""
-    }
-  ];
+export class TaskListComponent implements OnInit{
+  tasks: Task[] = [];
 
+  constructor(private http: HttpClient){}
+  ngOnInit(): void {
+    this.getTasks();
+  }
   async getTasks(){
     const id_token = localStorage.getItem("id_token");
     const accessKeyId = localStorage.getItem("accessKeyId");
@@ -46,7 +31,7 @@ export class TaskListComponent {
       })
       const headers = await getHeadersWithAuthorization(
         'https://momiq1uwd9.execute-api.eu-central-1.amazonaws.com/task',
-        {  body,method: 'GET'},
+        {  body,method: 'POST'},
         {
           accessKeyId: accessKeyId,
           secretAccessKey: secretAccessKey,
@@ -55,26 +40,7 @@ export class TaskListComponent {
           region: "eu-central-1"
         }
       );
-      const response = await fetch('https://momiq1uwd9.execute-api.eu-central-1.amazonaws.com/task',{body, headers,method:'GET'});
-      console.log(response);
-      // if(response.status == 200 && response.body != null) {
-      //   this.tasks = response.body as Task[];
-      // }
-      if (response.status === 200 && response.body !== null) {
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder("utf-8");
-        let result = '';
-        
-        // Read the stream
-        while (true) {
-            const { done, value } = await reader.read();
-            if (done) break;
-            result += decoder.decode(value, { stream: true });
-        }
-    
-        // Assuming the result is JSON formatted
-        this.tasks = JSON.parse(result); // Convert JSON string to Task[]
-    }
+      const response = await fetch('https://momiq1uwd9.execute-api.eu-central-1.amazonaws.com/tasks',{body, headers,method:'POST'});
     }
   }
 }

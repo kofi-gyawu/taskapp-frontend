@@ -2,16 +2,20 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { getHeadersWithAuthorization } from '@acusti/aws-signature-v4';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-registration',
   imports: [ReactiveFormsModule,HttpClientModule],
-  providers: [HttpClient],
+  providers: [HttpClient,ToastrService],
   templateUrl: './registration.component.html',
   styleUrl: './registration.component.scss'
 })
 export class RegistrationComponent {
-  constructor(private http: HttpClient){}
+  constructor(
+    private http: HttpClient,
+    private toastr: ToastrService,
+  ){}
   
   registerForm= new FormGroup({
     email: new  FormControl('')
@@ -40,7 +44,12 @@ export class RegistrationComponent {
         }
       );
       const response = await fetch('https://momiq1uwd9.execute-api.eu-central-1.amazonaws.com/signup',{body, headers,method:'POST'});
-      console.log(response);
+      if(response.status === 201) {
+        this.toastr.success("created")
+      } else {
+        this.toastr.error("couldnt create")
+      }
+
     }
   }
 }
