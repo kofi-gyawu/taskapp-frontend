@@ -1,1 +1,2 @@
-<app-taskcard></app-taskcard>
+<h1>Your Tasks</h1>
+<app-taskcard *ngFor="let task of tasks" [task]="task"></app-taskcard>

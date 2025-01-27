@@ -1,1 +1,6 @@
-<p>registration works!</p>
+<p>Register A User</p>
+<form [formGroup]="registerForm" (submit)="registerUser()">
+    <label for="email">Email</label>
+    <input formControlName="email"/>
+    <button type="submit">Create User</button>
+</form>
