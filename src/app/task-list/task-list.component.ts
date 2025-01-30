@@ -3,21 +3,36 @@ import { TaskcardComponent } from "./taskcard/taskcard.component";
 import { CommonModule } from '@angular/common';
 import { Task } from './task.model';
 import { getHeadersWithAuthorization } from '@acusti/aws-signature-v4';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { jwtDecode } from "jwt-decode";
+import { ID_TOKEN } from '../app.const';
+import { customPayload } from './jwt.model';
 
 @Component({
   selector: 'app-task-list',
-  imports: [TaskcardComponent,CommonModule,HttpClientModule],
-  providers: [HttpClient],
+  imports: [TaskcardComponent,CommonModule],
+  providers: [ToastrService],
   templateUrl: './task-list.component.html',
   styleUrl: './task-list.component.scss'
 })
 export class TaskListComponent implements OnInit{
   tasks: Task[] = [];
+  isAdmin: boolean = false;
 
-  constructor(private http: HttpClient){}
+  constructor(
+    private toastr: ToastrService,
+  ){}
   ngOnInit(): void {
     this.getTasks();
+    const token = localStorage.getItem(ID_TOKEN);
+    if(token) {
+      const decoded = jwtDecode<customPayload>(token);
+      console.log(decoded);
+      if(decoded['cognito:groups'] != undefined && decoded['cognito:groups'] != null) {
+        this.isAdmin = decoded['cognito:groups']?.includes("Admins");  
+      }
+    }
+    
   }
   async getTasks(){
     const id_token = localStorage.getItem("id_token");
@@ -30,7 +45,7 @@ export class TaskListComponent implements OnInit{
         id: id_token
       })
       const headers = await getHeadersWithAuthorization(
-        'https://momiq1uwd9.execute-api.eu-central-1.amazonaws.com/task',
+        'https://momiq1uwd9.execute-api.eu-central-1.amazonaws.com/tasks',
         {  body,method: 'POST'},
         {
           accessKeyId: accessKeyId,
@@ -40,7 +55,13 @@ export class TaskListComponent implements OnInit{
           region: "eu-central-1"
         }
       );
-      const response = await fetch('https://momiq1uwd9.execute-api.eu-central-1.amazonaws.com/tasks',{body, headers,method:'POST'});
+      const response = await fetch('https://momiq1uwd9.execute-api.eu-central-1.amazonaws.com/tasks',{body, headers,method:'POST'})
+      if(!response.ok) {
+        this.toastr.error("Couldnt fetch list");
+      } else {
+        this.toastr.success("success");
+        this.tasks = await response.json();
+      }
     }
   }
 }

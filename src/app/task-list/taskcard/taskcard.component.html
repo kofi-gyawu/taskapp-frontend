@@ -1,9 +1,24 @@
-<div>
+<div [ngSwitch]="isAdmin">
     <p>Name: {{task.name}}</p>
     <p>Descritpion: {{task.description}}</p>
-    <p>Status: {{task.Status}}</p>
+    <p>Status: {{task.status}}</p>
     <p>Deadline: {{task.deadline}}</p>
-    <p>Responsibility: {{task.responsibility}}</p>
+    <p *ngIf="!isAdmin">Responsibility: {{task.responsibility}}</p>
+    <div *ngIf="isAdmin" [ngSwitch]="isReassigning">
+        <p>Responsibility: {{task.responsibility}}</p>
+        <p *ngSwitchCase="false">{{task.responsibility}}</p>
+        <button *ngSwitchCase="false" (click)="toggleIsReassigning()">Reassign</button>
+        <input *ngSwitchCase="true" [(ngModel)]="task.status">
+        <button *ngSwitchCase="true" (click)="makeComment()">Done</button>
+    </div>
     <p>Completed_at: {{task.completed_at}}</p>
-    <p>Comment: {{task.comment}}</p>
+    <p>Comment:</p>
+    <div *ngIf="!isAdmin" [ngSwitch]="isCommenting">
+        <p *ngSwitchCase="false">{{comment}}</p>
+        <button *ngSwitchCase="false" (click)="setEditComment()">comment</button>
+        <input *ngSwitchCase="true" [(ngModel)]="comment">
+        <button *ngSwitchCase="true" (click)="makeComment()">send</button>
+    </div>
+    <button [disabled]="isntExpired" *ngSwitchCase="true" (click)="reopenTask()">Open</button>
+    <button *ngSwitchCase="false" (click)="completeTask()">Complete</button>
 </div>

@@ -1,10 +1,10 @@
 export interface Task{
-    id: String;
-    name: String;
-    description: String;
-    Status: String;
+    id: string;
+    name: string;
+    description: string;
+    status: string;
     deadline: number;
-    responsibility: String;
-    completed_at: String;
-    comment: String;
+    responsibility: string;
+    completed_at: string;
+    comment: string;
 }
