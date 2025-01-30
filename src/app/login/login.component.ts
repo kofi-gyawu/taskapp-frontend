@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
   }
 
   redirectToCognito(){
-    window.location.href = "https://sam-app-sam-app.auth.eu-central-1.amazoncognito.com/login?client_id=6f6vrq6b2o1gt90fj9tisses1r&redirect_uri=http://localhost:4200/callback&response_type=token"
-    // window.location.href = "https://sam-app-sam-app.auth.eu-central-1.amazoncognito.com/login?client_id=6f6vrq6b2o1gt90fj9tisses1r&redirect_uri=https://main.d2999je8ebi5mc.amplifyapp.com/callback&response_type=token"
+    // window.location.href = "https://sam-app-sam-app.auth.eu-central-1.amazoncognito.com/login?client_id=6f6vrq6b2o1gt90fj9tisses1r&redirect_uri=http://localhost:4200/callback&response_type=token"
+    window.location.href = "https://sam-app-sam-app.auth.eu-central-1.amazoncognito.com/login?client_id=6f6vrq6b2o1gt90fj9tisses1r&redirect_uri=https://main.d2999je8ebi5mc.amplifyapp.com/callback&response_type=token"
   }
 
   async authenticate(id_token: string) {

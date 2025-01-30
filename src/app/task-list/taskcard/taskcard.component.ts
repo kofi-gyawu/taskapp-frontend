@@ -77,8 +77,10 @@ export class TaskcardComponent implements OnInit{
     const accessKeyId = localStorage.getItem(ACCESS_KEY_ID);
     const secretAccessKey = localStorage.getItem(SECRET_KEY);
     const sessionToken = localStorage.getItem(SESSION_TOKEN);
-    if( accessKeyId != null && secretAccessKey != null && sessionToken != null) {
+    if( this.comment != "No Comment" && accessKeyId != null && secretAccessKey != null && sessionToken != null) {
+      this.task.comment = this.comment;
       const body = JSON.stringify(this.task)
+      console.log("set task comment")
       const headers = await getHeadersWithAuthorization(
         API+'task/comment',
         {body, method: 'POST'},
@@ -90,7 +92,9 @@ export class TaskcardComponent implements OnInit{
             region: REGION
           }
       );
+      console.log("done signing");
       const response = await fetch(API+'task/comment',{body,headers,method: 'POST'});
+      console.log("sent");
       if(!response.ok) {
         this.toastr.error("Couldnt Send");
       } else {
