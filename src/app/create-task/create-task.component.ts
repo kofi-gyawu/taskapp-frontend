@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { getHeadersWithAuthorization } from '@acusti/aws-signature-v4';
 import { ACCESS_KEY_ID, API, REGION, SECRET_KEY, SERVICE, SESSION_TOKEN } from '../app.const';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -11,6 +12,11 @@ import { ACCESS_KEY_ID, API, REGION, SECRET_KEY, SERVICE, SESSION_TOKEN } from '
   styleUrl: './create-task.component.scss'
 })
 export class CreateTaskComponent {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ){}
+
   taskForm= new FormGroup({
       name: new  FormControl(''),
       description: new FormControl(''),
@@ -43,6 +49,9 @@ export class CreateTaskComponent {
         );
         const response = await fetch(API+'task',{body, headers,method:'POST'});
         console.log(response);
+        if(response.status === 201 || response.status === 200) {
+          this.router.navigate(['tasks']);
+        }
       }
 
     }

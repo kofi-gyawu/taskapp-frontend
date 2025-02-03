@@ -17,12 +17,15 @@ import { Observable, of, Subject } from 'rxjs';
 export class TaskcardComponent implements OnInit{
   constructor(
     private toastr: ToastrService,
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.editComment.next(this.isCommenting);
     this.isntExpired = this.task.status !== "expired";
     console.log(this.task.status === "expired")
+    console.log("##########################33");
+    console.log(this.task.comment);
     if(this.task.comment) {
       this.comment = this.task.comment;
     }

@@ -7,6 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { jwtDecode } from "jwt-decode";
 import { ID_TOKEN } from '../app.const';
 import { customPayload } from './jwt.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-task-list',
@@ -21,13 +22,14 @@ export class TaskListComponent implements OnInit{
 
   constructor(
     private toastr: ToastrService,
+    private router: Router,
+    private route: ActivatedRoute,
   ){}
   ngOnInit(): void {
     this.getTasks();
     const token = localStorage.getItem(ID_TOKEN);
     if(token) {
       const decoded = jwtDecode<customPayload>(token);
-      console.log(decoded);
       if(decoded['cognito:groups'] != undefined && decoded['cognito:groups'] != null) {
         this.isAdmin = decoded['cognito:groups']?.includes("Admins");  
       }
@@ -63,6 +65,10 @@ export class TaskListComponent implements OnInit{
         this.tasks = await response.json();
       }
     }
+  }
+
+  routeToCreateTask(){
+    this.router.navigate(['create']);
   }
 }
 

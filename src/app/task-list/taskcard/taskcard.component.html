@@ -13,8 +13,9 @@
     </div>
     <p>Completed_at: {{task.completed_at}}</p>
     <p>Comment:</p>
+    <P *ngIf="isAdmin">{{task.comment}}</P>
     <div *ngIf="!isAdmin" [ngSwitch]="isCommenting">
-        <p *ngSwitchCase="false">{{comment}}</p>
+        <p *ngSwitchCase="false">{{task.comment}}</p>
         <button *ngSwitchCase="false" (click)="setEditComment()">comment</button>
         <input *ngSwitchCase="true" [(ngModel)]="comment">
         <button *ngSwitchCase="true" (click)="makeComment()">send</button>
