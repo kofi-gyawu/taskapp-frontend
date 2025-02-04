@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { getHeadersWithAuthorization } from '@acusti/aws-signature-v4';
 import { ToastrService } from 'ngx-toastr';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -15,6 +16,8 @@ export class RegistrationComponent {
   constructor(
     private http: HttpClient,
     private toastr: ToastrService,
+    private router: Router,
+    private route: ActivatedRoute,
   ){}
   
   registerForm= new FormGroup({
@@ -44,12 +47,12 @@ export class RegistrationComponent {
         }
       );
       const response = await fetch('https://momiq1uwd9.execute-api.eu-central-1.amazonaws.com/signup',{body, headers,method:'POST'});
-      if(response.status === 201) {
+      if(response.status === 201 || response.status === 200) {
         this.toastr.success("created")
+        this.router.navigate(['tasks']);
       } else {
         this.toastr.error("couldnt create")
       }
-
     }
   }
 }

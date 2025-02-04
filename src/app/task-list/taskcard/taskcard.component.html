@@ -9,7 +9,7 @@
         <p *ngSwitchCase="false">{{task.responsibility}}</p>
         <button *ngSwitchCase="false" (click)="toggleIsReassigning()">Reassign</button>
         <input *ngSwitchCase="true" [(ngModel)]="task.responsibility">
-        <button *ngSwitchCase="true" (click)="makeComment()">Done</button>
+        <button *ngSwitchCase="true" (click)="reassignTask()">Done</button>
     </div>
     <p>Completed_at: {{task.completed_at}}</p>
     <p>Comment:</p>

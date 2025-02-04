@@ -23,9 +23,6 @@ export class TaskcardComponent implements OnInit{
   ngOnInit(): void {
     this.editComment.next(this.isCommenting);
     this.isntExpired = this.task.status !== "expired";
-    console.log(this.task.status === "expired")
-    console.log("##########################33");
-    console.log(this.task.comment);
     if(this.task.comment) {
       this.comment = this.task.comment;
     }
@@ -69,11 +66,38 @@ export class TaskcardComponent implements OnInit{
       );
       const response = await fetch(API+'task/complete',{body,headers,method: 'PATCH'});
       if(!response.ok) {
-        this.toastr.error("Couldnt fetch list");
+        this.toastr.error("Couldnt Complete");
       } else {
         this.task = await response.json();
       }
     }
+  }
+
+  async reassignTask() {
+    const accessKeyId = localStorage.getItem(ACCESS_KEY_ID);
+    const secretAccessKey = localStorage.getItem(SECRET_KEY);
+    const sessionToken = localStorage.getItem(SESSION_TOKEN);
+    if( accessKeyId != null && secretAccessKey != null && sessionToken != null) {
+      const body = JSON.stringify(this.task)
+      const headers = await getHeadersWithAuthorization(
+        API+'task/reassign',
+        {body, method: 'PATCH'},
+          {
+            accessKeyId: accessKeyId,
+            secretAccessKey: secretAccessKey,
+            sessionToken: sessionToken,
+            service: SERVICE,
+            region: REGION
+          }
+      );
+      const response = await fetch(API+'task/reassign',{body,headers,method: 'PATCH'});
+      if(!response.ok) {
+        this.toastr.error("Couldnt reassign");
+      } else {
+        this.task = await response.json();
+      }
+    }
+    this.toggleIsReassigning();
   }
 
   async makeComment(){

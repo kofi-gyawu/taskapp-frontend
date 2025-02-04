@@ -1,3 +1,4 @@
 <h1>Your Tasks</h1>
 <app-taskcard *ngFor="let task of tasks" [task]="task" [isAdmin]="isAdmin"></app-taskcard>
 <button *ngIf="isAdmin" (click)="routeToCreateTask()">Create Task</button>
+<button *ngIf="isAdmin" (click)="routeToRegisterUser()">Create User</button>

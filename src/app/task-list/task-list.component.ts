@@ -70,5 +70,8 @@ export class TaskListComponent implements OnInit{
   routeToCreateTask(){
     this.router.navigate(['create']);
   }
+  routeToRegisterUser(){
+    this.router.navigate(['onboard']);
+  }
 }
 
