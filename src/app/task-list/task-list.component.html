@@ -1,4 +1,14 @@
-<h1>Your Tasks</h1>
-<app-taskcard *ngFor="let task of tasks" [task]="task" [isAdmin]="isAdmin"></app-taskcard>
-<button *ngIf="isAdmin" (click)="routeToCreateTask()">Create Task</button>
-<button *ngIf="isAdmin" (click)="routeToRegisterUser()">Create User</button>
+<nav>
+    <h1>OverWork</h1>
+    <div class="pagebtn">
+        <button *ngIf="isAdmin">Tasks</button>
+        <button *ngIf="isAdmin" (click)="routeToRegisterUser()">Users</button>
+    </div>
+</nav>
+<body>
+    <h2>Your Tasks</h2>
+    <div class="actions">
+        <button *ngIf="isAdmin" (click)="routeToCreateTask()">Create Task</button>
+    </div>
+    <app-taskcard *ngFor="let task of tasks" [task]="task" [isAdmin]="isAdmin"></app-taskcard>
+</body>

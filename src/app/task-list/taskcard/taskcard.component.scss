@@ -1,0 +1,84 @@
+#card {
+    display: grid;
+    grid-template-areas:
+    'header header header'
+    'name name name'
+    'description description description'
+    'responsibility responsibility responsibility'
+    'deadline completed card-action '
+    'comment comment comment'
+    ;
+    padding-left: 40px;
+    padding-right: 10px;
+    border-radius: 10px;
+    border: 1px solid lightgray;
+}
+
+#status {
+    grid-area: header;
+}
+
+#name {
+    grid-area: name;
+    font-weight: bold;
+    font-size: large;
+}
+
+#description {
+    grid-area: description
+}
+
+#responsibility {
+    grid-area: responsibility;
+}
+
+#reassignbtn {
+    size: 100;
+    margin: auto;
+    background-color: white;
+    border-radius: 30px;
+    color: black;
+    font-size: 10px;
+    padding: 5px 15px 5px 15px;
+    grid-area: responsibility;
+}
+
+#commentsection {
+    grid-area: comment;
+}
+
+#completed {
+    grid-area: completed
+}
+
+#deadline {
+    grid-column-start: 1;    
+    grid-row-start:5;
+}
+
+// #openbtn {
+//     size: 100;
+//     margin: auto;
+//     background-color: white;
+//     border-radius: 30px;
+//     color: black;
+//     font-size: 20px;
+//     padding: 5px 15px 5px 15px;
+//     grid-area: open
+// }
+
+#completebtn {
+    size: 100;
+    margin: auto;
+    background-color: white;
+    border-radius: 30px;
+    color: black;
+    font-size: 20px;
+    padding: 5px 15px 5px 15px;
+    grid-row-start: 6;
+}
+
+button:hover {
+    background: black;
+    color: white;
+}

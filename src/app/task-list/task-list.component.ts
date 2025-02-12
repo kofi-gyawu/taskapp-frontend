@@ -25,6 +25,7 @@ export class TaskListComponent implements OnInit{
     private router: Router,
     private route: ActivatedRoute,
   ){}
+  
   ngOnInit(): void {
     this.getTasks();
     const token = localStorage.getItem(ID_TOKEN);
@@ -41,7 +42,6 @@ export class TaskListComponent implements OnInit{
     const accessKeyId = localStorage.getItem("accessKeyId");
     const secretAccessKey = localStorage.getItem("secretKey");
     const sessionToken = localStorage.getItem("sessionToken");
-    console.log(id_token,accessKeyId,secretAccessKey,sessionToken);
     if( accessKeyId != null && secretAccessKey != null && sessionToken != null) {
       const body = JSON.stringify({
         id: id_token

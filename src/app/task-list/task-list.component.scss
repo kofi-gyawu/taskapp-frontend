@@ -1,0 +1,68 @@
+nav {
+    position:fixed;
+    top: 0;
+    width: 99%;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+.pagebtn {
+    margin-left: auto;    
+}
+
+
+body {
+    padding: 100px;
+    display: grid;
+    // background-color: lightgray;
+    grid-template-areas:
+    'title'
+    'actions'
+    ;
+    gap: 30px;
+}
+
+h2 {
+    grid-area: title;
+    font-size: 30px;   
+    margin-top: 10px;
+    margin-bottom: 35px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+app-taskcard {
+    overflow: auto;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+.actions {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    grid-area: actions;
+}
+
+button {
+    size: 100;
+    margin: auto;
+    background-color: white;
+    border-radius: 30px;
+    color: black;
+    font-size: 20px;
+    padding: 5px 15px 5px 15px;
+    // grid-area: actions;
+}
+
+button:hover {
+    background: black;
+    color: white;
+}

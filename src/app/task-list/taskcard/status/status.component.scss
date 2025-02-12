@@ -1,0 +1,54 @@
+div {
+    margin-top: 5px;
+    display:inline-flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px;
+    border-radius: 20px;
+    padding-top: 0px;
+    padding-right: 10px;
+}
+
+.positive {
+    background-color: #D7F0E4;  
+    color: #37A165;
+
+}
+.negative {
+    background-color: #E1B1AF;
+    color: #C74E4E;
+}
+
+#openbtn {
+    border: none;
+    size: 100;
+    height: fit-content;
+    background-color: transparent;
+    color: #C74E4E;
+    font-size: large;
+    padding-left: 10px;
+}
+
+#completebtn {
+    border: none;
+    size: 100;
+    background-color: transparent;
+    color: #37A165;
+    font-size: 20px;
+    padding: 5px 15px 5px 15px;
+}
+
+.complete {
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.uncomplete {
+    font-size: 20px;
+    padding-left: 10px;    
+}
+
+.locked {
+    font-size: 20px;
+    padding-left: 10px;
+}

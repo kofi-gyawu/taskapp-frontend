@@ -6,10 +6,12 @@ import { getHeadersWithAuthorization } from '@acusti/aws-signature-v4';
 import { ToastrService } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
 import { Observable, of, Subject } from 'rxjs';
+import { StatusComponent } from "./status/status.component";
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-taskcard',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,MatIconModule, StatusComponent],
   providers: [ToastrService],
   templateUrl: './taskcard.component.html',
   styleUrl: './taskcard.component.scss'

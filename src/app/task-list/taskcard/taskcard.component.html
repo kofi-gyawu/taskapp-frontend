@@ -1,25 +1,21 @@
-<div [ngSwitch]="isAdmin">
-    <p>Name: {{task.name}}</p>
-    <p>Descritpion: {{task.description}}</p>
-    <p>Status: {{task.status}}</p>
-    <p>Deadline: {{task.deadline}}</p>
-    <p *ngIf="!isAdmin">Responsibility: {{task.responsibility}}</p>
+<div id="card" [ngSwitch]="isAdmin">
+    <p id="name">{{task.name}}</p>
+    <p id="description">{{task.description}}</p>
+    <app-status id="status" [task]="task" [isAdmin]="isAdmin"></app-status>
+    <p id="deadline">Deadline: {{task.deadline}}</p>
+    <p id="responsibility" *ngIf="!isAdmin">Responsibility: {{task.responsibility}}</p>
     <div *ngIf="isAdmin" [ngSwitch]="isReassigning">
-        <p>Responsibility: {{task.responsibility}}</p>
-        <p *ngSwitchCase="false">{{task.responsibility}}</p>
-        <button *ngSwitchCase="false" (click)="toggleIsReassigning()">Reassign</button>
+        <p id="responsibility" *ngSwitchCase="false">Responsibility: {{task.responsibility}}</p>
+        <button id="reassignbtn" *ngSwitchCase="false" (click)="toggleIsReassigning()">Reassign</button>
         <input *ngSwitchCase="true" [(ngModel)]="task.responsibility">
         <button *ngSwitchCase="true" (click)="reassignTask()">Done</button>
     </div>
-    <p>Completed_at: {{task.completed_at}}</p>
-    <p>Comment:</p>
-    <P *ngIf="isAdmin">{{task.comment}}</P>
-    <div *ngIf="!isAdmin" [ngSwitch]="isCommenting">
-        <p *ngSwitchCase="false">{{task.comment}}</p>
+    <p id="completed">Completed at: {{task.completed_at}}</p>
+    <P id="commentsection" *ngIf="isAdmin"><mat-icon>chat_bubble_outline</mat-icon> {{task.comment}}</P>
+    <div id="commentsection" *ngIf="!isAdmin" [ngSwitch]="isCommenting">
+        <p *ngSwitchCase="false"><mat-icon>chat_bubble_outline</mat-icon> {{task.comment}}</p>
         <button *ngSwitchCase="false" (click)="setEditComment()">comment</button>
         <input *ngSwitchCase="true" [(ngModel)]="comment">
         <button *ngSwitchCase="true" (click)="makeComment()">send</button>
     </div>
-    <button [disabled]="isntExpired" *ngSwitchCase="true" (click)="reopenTask()">Open</button>
-    <button *ngSwitchCase="false" (click)="completeTask()">Complete</button>
 </div>

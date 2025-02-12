@@ -1,0 +1,13 @@
+<div [ngClass]="isExpired?'negative':'positive'" [ngSwitch]="isAdmin">
+    <ng-container *ngSwitchCase="true" >
+        <button *ngIf="isExpired" id="openbtn" (click)="reopenTask()"><mat-icon>key</mat-icon></button>
+        <mat-icon class="complete" *ngIf="!isExpired && isComplete">check_box</mat-icon>    
+        <mat-icon class="complete" *ngIf="!isExpired  && !isComplete">check_box_outline_blank</mat-icon>
+    </ng-container>
+    <ng-container *ngSwitchCase="false">
+        <button *ngIf="!isExpired && !isComplete" id="completebtn" (click)="completeTask()"><mat-icon>check_box_outline_blank</mat-icon></button>
+        <mat-icon class="complete" *ngIf="!isExpired && isComplete">check_box</mat-icon>
+        <mat-icon class="locked" *ngIf="isExpired">lock</mat-icon>
+    </ng-container>
+    <p id="status">{{task.status}}</p>
+</div>

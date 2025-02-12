@@ -1,6 +1,18 @@
-<p>Register A User</p>
-<form [formGroup]="registerForm" (submit)="registerUser()">
-    <label for="email">Email</label>
-    <input formControlName="email"/>
-    <button type="submit">Create User</button>
-</form>
+<nav>
+    <h1>OverWork</h1>
+    <div class="pagebtn">
+        <button *ngIf="isAdmin" (click)="routeToTasks()">Tasks</button>
+        <button *ngIf="isAdmin" (click)="routeToUsers()">Users</button>
+    </div>
+</nav>
+<body>
+    <h2>Register A User</h2>
+    <form class="regForm" [formGroup]="registerForm" (submit)="registerUser()">
+        <div>
+            <label for="admin">Admin</label>
+            <input formControlName="role" type="radio"/>
+        </div>
+        <input class="textInput" formControlName="email" placeholder="email"/>
+        <button type="submit">Create User</button>
+    </form>
+</body>

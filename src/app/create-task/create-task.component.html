@@ -1,10 +1,17 @@
-<p>Create Task</p>
-<form [formGroup]="taskForm" (submit)="createTaskt()">
-    <label for="name">name</label>
-    <input formControlName="name"/>
-    <label for="description">description</label>
-    <input formControlName="description"/>
-    <label for="responsibility">responsibility</label>
-    <input formControlName="responsibility"/>
-    <button type="submit">Create Task</button>
-</form>
+<nav>
+    <h1>OverWork</h1>
+    <div class="pagebtn">
+        <button *ngIf="isAdmin" (click)="routeToTasks()">Tasks</button>
+        <button *ngIf="isAdmin" (click)="routeToUsers()">Users</button>
+    </div>
+</nav>
+<body>
+    <h2>Create Task</h2>
+    <form class="regForm" [formGroup]="taskForm" (submit)="createTask()">
+        <input class="textInput" formControlName="name" placeholder="Name"/>
+        <input class="textInput" formControlName="description" placeholder="Description"/>
+        <input class="textInput" formControlName="responsibility" placeholder="Responsibility"/>
+        <input class="textInput" formControlName="deadline" type="datetime-local"/>
+        <button type="submit">Create Task</button>
+    </form>
+</body>

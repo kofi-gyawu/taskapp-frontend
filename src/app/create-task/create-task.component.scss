@@ -1,0 +1,51 @@
+nav {
+    position:fixed;
+    top: 0;
+    width: 99%;
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+    background-color: white;
+    border-bottom: 1px solid lightgray;
+}
+
+.pagebtn {
+    margin-left: auto;    
+}
+
+body {
+    margin-top: 150px;
+    padding-left: 40%;
+    padding-right: 40%;
+}
+
+h2 {
+    padding-left: 30%;    
+}
+
+.regForm {
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+}
+
+.textInput {
+    border-radius: 30px;
+    border: 2px solid black;
+    height: 40px;
+    padding-left: 20px;
+}
+
+button {
+    size: 100;
+    background-color: white;
+    border-radius: 30px;
+    color: black;
+    font-size: 20px;
+    padding: 5px 15px 5px 15px;
+}
+
+button:hover {
+    background: black;
+    color: white;
+}
